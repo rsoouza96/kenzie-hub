@@ -87,39 +87,41 @@ const TechConfig = () => {
 
   return (
     <>
-      <form onSubmit={createTech}>
-        <Content>
-          <FormControl>
-            <TextField
-              label="Tecnologia"
-              name="title"
-              value={techInput}
-              onChange={(evt) => {
-                handleTargetValue(evt, setInput);
-              }}
-            />
-          </FormControl>
-          <FormControl>
-            <Select
-              label="Nível"
-              name="status"
-              value={level}
-              onChange={(evt) => {
-                handleTargetValue(evt, setLevel);
-              }}
-            >
-              <MenuItem value="Iniciante">Básico</MenuItem>
-              <MenuItem value="Intermediário">Intermediário</MenuItem>
-              <MenuItem value="Avançado">Avançado</MenuItem>
-            </Select>
-          </FormControl>
-          <FormControl>
-            <Button type="submit">
-              <AddIcon />
-            </Button>
-          </FormControl>
-        </Content>
-      </form>
+      {!isEditable && (
+        <form onSubmit={createTech}>
+          <Content>
+            <FormControl>
+              <TextField
+                label="Tecnologia"
+                name="title"
+                value={techInput}
+                onChange={(evt) => {
+                  handleTargetValue(evt, setInput);
+                }}
+              />
+            </FormControl>
+            <FormControl>
+              <Select
+                label="Nível"
+                name="status"
+                value={level}
+                onChange={(evt) => {
+                  handleTargetValue(evt, setLevel);
+                }}
+              >
+                <MenuItem value="Iniciante">Básico</MenuItem>
+                <MenuItem value="Intermediário">Intermediário</MenuItem>
+                <MenuItem value="Avançado">Avançado</MenuItem>
+              </Select>
+            </FormControl>
+            <FormControl>
+              <Button type="submit">
+                <AddIcon />
+              </Button>
+            </FormControl>
+          </Content>
+        </form>
+      )}
       <List>
         {isEditable ? (
           <form onSubmit={editTech}>
