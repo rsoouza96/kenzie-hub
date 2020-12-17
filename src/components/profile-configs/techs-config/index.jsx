@@ -29,8 +29,19 @@ const TechConfig = () => {
   const [techID, setTechID] = useState("");
   const [updatableTechs, setTechs] = useState({});
   const [anchorEl, setAnchorEl] = useState(null);
+  const [techs, setUpdateTechs] = useState([])
 
   const userInfos = useSelector((state) => state.currentUserToken);
+  const userID = userInfos.user.id
+
+  useEffect(() => {
+    axios
+    .get(`https://kenziehub.me/users/${userID}`)
+    .then((response) => {
+      setUpdateTechs(response.data.techs)
+    })
+    .catch((e) => console.error(e));
+  }, [setIsEditable])
 
   const open = Boolean(anchorEl);
   const id = open ? "popover" : undefined;
@@ -59,7 +70,9 @@ const TechConfig = () => {
         Authorization: `Bearer ${userInfos.token}`,
       },
       data: { title: `${techInput}`, status: `${level}` },
-    }).catch((err) => console.log(err));
+    })
+    .then(response => setUpdateTechs([...techs, response.data]))
+    .catch((err) => console.log(err));
   };
 
   const editTech = (evt) => {
@@ -71,8 +84,9 @@ const TechConfig = () => {
         Authorization: `Bearer ${userInfos.token}`,
       },
       data: { status: newLevel },
-    }).then((res) => {
-      setIsEditable(false);
+    }).then((response) => {
+      setUpdateTechs(techs)
+      setIsEditable(false)
     });
   };
 
@@ -83,9 +97,14 @@ const TechConfig = () => {
       headers: {
         Authorization: `Bearer ${userInfos.token}`,
       },
-    });
+    })
+    .then((response) => {
+      setUpdateTechs(techs.filter((tech) => tech.id !== techID))
+    })
   };
 
+
+  console.log(techs)
   return (
     <>
       {!isEditable && (
@@ -148,7 +167,7 @@ const TechConfig = () => {
             </Content>
           </form>
         ) : userInfos.user.techs ? (
-          userInfos.user.techs.map((tech, index) => (
+          techs.map((tech, index) => (
             <ListItem key={index}>
               <ListItemAvatar>
                 <Avatar>
