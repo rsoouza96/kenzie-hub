@@ -26,7 +26,7 @@ const MyProfile = () => {
 
   useEffect(() => {
     profileRequest(id);
-  }, []); // eslint-disable-line
+  }, []);
 
   const profileRequest = (userId) => {
     axios
@@ -58,7 +58,6 @@ const MyProfile = () => {
             index={value}
             onChangeIndex={handleChangeIndex}
           >
-            {/* Tab bio  */}
             <TabContent value={value} index={0}>
               <ContainerBio>
                 <div className="imageCard">
@@ -80,7 +79,6 @@ const MyProfile = () => {
               </ContainerBio>
             </TabContent>
 
-            {/*TECHS*/}
             <TabContent value={value} index={1} dir={theme.direction}>
               <List>
                 <div className="techs">
