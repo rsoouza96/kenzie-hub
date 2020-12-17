@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   List,
   ListItem,
@@ -31,6 +31,7 @@ const TechConfig = () => {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const userInfos = useSelector((state) => state.currentUserToken);
+
   const open = Boolean(anchorEl);
   const id = open ? "popover" : undefined;
 

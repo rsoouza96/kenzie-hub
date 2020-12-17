@@ -53,7 +53,7 @@ const MyProfile = () => {
   return (
     <UserContainer>
     {userID ? (
-      <Container maxWidth="md">
+      <Container>
         <Paper>
           <Tabs
             value={value}

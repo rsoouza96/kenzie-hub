@@ -20,6 +20,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import { useSelector } from "react-redux";
 import WorkIcon from "@material-ui/icons/Work";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import { useEffect } from 'react'
 
 import axios from "axios";
 import { Content, ContentList } from "./style";
@@ -28,10 +29,24 @@ const WorksConfig = () => {
   const [workTitleInput, setWorkTitleInput] = useState("");
   const [workDescriptionInput, setWorkDescriptionInput] = useState("");
   const [workUrlInput, setWorkUrlInput] = useState("");
+  const [works, setWorks] = useState([])
 
   const userInfos = useSelector((state) => state.currentUserToken);
+  const userID = userInfos.user.id
   const user = userInfos.user;
-  const works = user.works;
+  // const works = user.works;
+
+
+  useEffect(() => {
+    axios
+    .get(`https://kenziehub.me/users/${userID}`)
+    .then((response) => {
+      console.log(response)
+      setWorks(response.data.works)
+    })
+    .catch((e) => console.error(e));
+  }, [] )
+
 
   const createWork = (evt) => {
     evt.preventDefault();
@@ -47,7 +62,9 @@ const WorksConfig = () => {
         deploy_url: `${workUrlInput}`,
       },
     })
-      .then((response) => console.log(response))
+      .then((response) => {
+        setWorks([...works, response.data])
+      })
       .catch((err) => console.log(err));
   };
   const handleDeleteWork = (ID) => {
@@ -58,10 +75,14 @@ const WorksConfig = () => {
         Authorization: `Bearer ${userInfos.token}`,
       },
     })
-      .then((response) => console.log(response))
+      .then((response) => {
+        setWorks(works.filter((work) => work.id !== ID))
+      })
       .catch((err) => console.log(err));
   };
 
+
+  console.log(works)
   return (
     <>
       <Content>
