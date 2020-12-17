@@ -1,3 +1,4 @@
+import { Container } from "./styles";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -10,7 +11,6 @@ import Alert from "@material-ui/lab/Alert";
 import { useHistory } from "react-router-dom";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
 import InputAdornment from "@material-ui/core/InputAdornment";
-import { Container } from "./styles";
 
 import { addUserToken } from "../../../../store/modules/current-user/action";
 

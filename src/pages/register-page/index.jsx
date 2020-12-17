@@ -1,8 +1,8 @@
+import { ContainerStyled, RadioStyling } from "./styles";
 import { MenuItem, IconButton, Select, InputLabel, FormControl, TextField, InputAdornment} from "@material-ui/core";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { ContainerStyled, RadioStyling } from "./styles";
 import axios from "axios";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";

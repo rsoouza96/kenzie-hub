@@ -1,7 +1,7 @@
+import { TabContainer } from "./style";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 import PropTypes from "prop-types";
-import { TabContainer } from "./style";
 
 const TabContent = ({ children, value, index, ...other }) => {
   return (
