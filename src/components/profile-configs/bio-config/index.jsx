@@ -1,3 +1,4 @@
+import { Container } from "./styles";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -6,9 +7,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { TextField, Button, Snackbar } from "@material-ui/core";
 import { useState } from "react";
 import Alert from "@material-ui/lab/Alert";
-import { userEdit } from "../../../store/modules/user-edit/action";
-import { Container } from "./styles";
 
+import { userEdit } from "../../../store/modules/user-edit/action";
 import ChangePassword from "./ChangePassword";
 import BioAvatar from "./BioAvatar";
 
