@@ -27,6 +27,10 @@ const TechConfig = () => {
   const [newLevel, setNewLevel] = useState("Básico");
   const [isEditable, setIsEditable] = useState(false);
   const [techID, setTechID] = useState("");
+<<<<<<< HEAD
+=======
+  const [updatableTechs, setTechs] = useState({});
+>>>>>>> 097bfb0f26114cf5e9627136c0b5d15ced1b0ddc
   const [anchorEl, setAnchorEl] = useState(null);
   const [techs, setTechs] = useState([])
 
@@ -70,7 +74,7 @@ const TechConfig = () => {
       headers: {
         Authorization: `Bearer ${userInfos.token}`,
       },
-      data: { status: level },
+      data: { status: newLevel },
     }).then((res) => {
       setIsEditable(false);
     });
@@ -88,39 +92,41 @@ const TechConfig = () => {
 
   return (
     <>
-      <form onSubmit={createTech}>
-        <Content>
-          <FormControl>
-            <TextField
-              label="Tecnologia"
-              name="title"
-              value={techInput}
-              onChange={(evt) => {
-                handleTargetValue(evt, setInput);
-              }}
-            />
-          </FormControl>
-          <FormControl>
-            <Select
-              label="Nível"
-              name="status"
-              value={level}
-              onChange={(evt) => {
-                handleTargetValue(evt, setLevel);
-              }}
-            >
-              <MenuItem value="Iniciante">Básico</MenuItem>
-              <MenuItem value="Intermediário">Intermediário</MenuItem>
-              <MenuItem value="Avançado">Avançado</MenuItem>
-            </Select>
-          </FormControl>
-          <FormControl>
-            <Button type="submit">
-              <AddIcon />
-            </Button>
-          </FormControl>
-        </Content>
-      </form>
+      {!isEditable && (
+        <form onSubmit={createTech}>
+          <Content>
+            <FormControl>
+              <TextField
+                label="Tecnologia"
+                name="title"
+                value={techInput}
+                onChange={(evt) => {
+                  handleTargetValue(evt, setInput);
+                }}
+              />
+            </FormControl>
+            <FormControl>
+              <Select
+                label="Nível"
+                name="status"
+                value={level}
+                onChange={(evt) => {
+                  handleTargetValue(evt, setLevel);
+                }}
+              >
+                <MenuItem value="Iniciante">Básico</MenuItem>
+                <MenuItem value="Intermediário">Intermediário</MenuItem>
+                <MenuItem value="Avançado">Avançado</MenuItem>
+              </Select>
+            </FormControl>
+            <FormControl>
+              <Button type="submit">
+                <AddIcon />
+              </Button>
+            </FormControl>
+          </Content>
+        </form>
+      )}
       <List>
         {isEditable ? (
           <form onSubmit={editTech}>
@@ -147,51 +153,49 @@ const TechConfig = () => {
           </form>
         ) : userInfos.user.techs ? (
           userInfos.user.techs.map((tech, index) => (
-            <>
-              <ListItem key={index}>
-                <ListItemAvatar>
-                  <Avatar>
-                    <CodeIcon />
-                  </Avatar>
-                </ListItemAvatar>
-                <ListItemText primary={tech.title} secondary={tech.status} />
-                <IconButton>
-                  <CreateIcon
+            <ListItem key={index}>
+              <ListItemAvatar>
+                <Avatar>
+                  <CodeIcon />
+                </Avatar>
+              </ListItemAvatar>
+              <ListItemText primary={tech.title} secondary={tech.status} />
+              <IconButton>
+                <CreateIcon
+                  onClick={() => {
+                    setTechID(tech.id);
+                    handleEditable();
+                  }}
+                />
+              </IconButton>
+              <IconButton>
+                <DeleteIcon
+                  onClick={(evt) => {
+                    setTechID(tech.id);
+                    handleClick(evt, setAnchorEl);
+                  }}
+                />
+                <Popover
+                  id={id}
+                  open={open}
+                  anchorEl={anchorEl}
+                  onClose={handleClose}
+                  anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+                  transformOrigin={{ vertical: "top", horizontal: "center" }}
+                >
+                  <h2>Tem certeza?</h2>
+                  <Button
                     onClick={() => {
-                      setTechID(tech.id);
-                      handleEditable();
+                      deleteTech();
+                      handleClose();
                     }}
-                  />
-                </IconButton>
-                <IconButton>
-                  <DeleteIcon
-                    onClick={(evt) => {
-                      setTechID(tech.id);
-                      handleClick(evt, setAnchorEl);
-                    }}
-                  />
-                  <Popover
-                    id={id}
-                    open={open}
-                    anchorEl={anchorEl}
-                    onClose={handleClose}
-                    anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-                    transformOrigin={{ vertical: "top", horizontal: "center" }}
                   >
-                    <h2>Tem certeza?</h2>
-                    <Button
-                      onClick={() => {
-                        deleteTech();
-                        handleClose();
-                      }}
-                    >
-                      Sim
-                    </Button>
-                    <Button onClick={handleClose}>Não</Button>
-                  </Popover>
-                </IconButton>
-              </ListItem>
-            </>
+                    Sim
+                  </Button>
+                  <Button onClick={handleClose}>Não</Button>
+                </Popover>
+              </IconButton>
+            </ListItem>
           ))
         ) : (
           <div>Carregando...</div>
