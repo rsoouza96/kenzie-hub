@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const UserContainer = styled.div `
+export const UserContainer = styled.div`
   display: flex;
   height: 100vh;
   align-items: center;
@@ -86,6 +86,9 @@ export const UserContainer = styled.div `
     justify-content: center;
     align-content: center;
   }
+  .MuiTabs-indicator {
+    border: 1px solid #1480fb;
+  }
   @media (min-width: 768px) and (max-width: 979px) {
     .MuiPaper-root.MuiPaper-elevation1.MuiPaper-rounded {
       width: 90vw;
@@ -151,13 +154,13 @@ export const UserContainer = styled.div `
   }
 `;
 
-export const TabContainer = styled.div `
+export const TabContainer = styled.div`
   height: auto;
   min-height: 70vh;
   max-height: 70vh;
 `;
 
-export const ContainerBio = styled.div `
+export const ContainerBio = styled.div`
   display: flex;
   margin-top: 1rem;
   flex-direction: column;
