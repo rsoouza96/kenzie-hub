@@ -34,7 +34,6 @@ const WorksConfig = () => {
   const userInfos = useSelector((state) => state.currentUserToken);
   const userID = userInfos.user.id
   const user = userInfos.user;
-  // const works = user.works;
 
 
   useEffect(() => {
@@ -45,7 +44,7 @@ const WorksConfig = () => {
       setWorks(response.data.works)
     })
     .catch((e) => console.error(e));
-  }, [] )
+  }, [])
 
 
   const createWork = (evt) => {
