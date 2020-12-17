@@ -15,7 +15,6 @@ import BioAvatar from "./BioAvatar";
 const BioConfig = () => {
   const updatableData = useSelector((state) => state.newEdit);
   const dispatch = useDispatch();
-  console.log(updatableData)
 
   const user = useSelector((state) => state.currentUserToken);
 
@@ -33,8 +32,6 @@ const BioConfig = () => {
   const { register, handleSubmit, errors } = useForm({
     resolver: yupResolver(schema),
   });
-
-  console.log(updatableData)
 
   const handleForm = (value) => {
     dispatch(userEdit(value));

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import {
   IconButton,
@@ -11,10 +11,24 @@ import CreateIcon from "@material-ui/icons/Create";
 import CheckIcon from "@material-ui/icons/Check";
 import axios from "axios";
 import { Container } from "./styles";
+
+
 const CourseConfig = () => {
   const userInfos = useSelector((state) => state.currentUserToken);
   const [isEditable, setIsEditable] = useState(false);
   const [selectValue, setSelectValue] = useState(userInfos.user.course_module);
+  const [courseModule, setCourseModule] = useState('')
+
+  const userID = userInfos.user.id
+
+  useEffect(() => {
+    axios
+    .get(`https://kenziehub.me/users/${userID}`)
+    .then((response) => {
+      setCourseModule(response.data.course_module)
+    })
+    .catch((e) => console.error(e));
+  }, [])
 
   const handleEditable = () => {
     setIsEditable(true);
@@ -32,7 +46,7 @@ const CourseConfig = () => {
       },
     }).then((response) => {
       setIsEditable(false);
-      console.log(response);
+      setCourseModule(response.data.course_module)
     });
   };
 
@@ -65,7 +79,7 @@ const CourseConfig = () => {
         </form>
       ) : (
         <div className="editModule">
-          <h3>{userInfos.user.course_module}</h3>
+          <h3>{courseModule}</h3>
           <IconButton onClick={handleEditable}>
             <CreateIcon />
           </IconButton>

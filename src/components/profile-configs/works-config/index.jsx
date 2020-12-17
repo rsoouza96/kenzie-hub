@@ -39,7 +39,6 @@ const WorksConfig = () => {
     axios
     .get(`https://kenziehub.me/users/${userID}`)
     .then((response) => {
-      console.log(response)
       setWorks(response.data.works)
     })
     .catch((e) => console.error(e));
@@ -79,8 +78,6 @@ const WorksConfig = () => {
       .catch((err) => console.log(err));
   };
 
-
-  console.log(works)
   return (
     <>
       <Content>

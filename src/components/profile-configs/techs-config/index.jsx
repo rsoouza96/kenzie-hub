@@ -102,8 +102,6 @@ const TechConfig = () => {
     })
   };
 
-
-  console.log(techs)
   return (
     <>
       {!isEditable && (

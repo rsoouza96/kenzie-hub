@@ -12,7 +12,6 @@ const BioAvatar = ({ token, actualImg }) => {
     axios
     .get(`https://kenziehub.me/users/${userID}`)
     .then((response) => {
-      console.log(response)
       setAvatar(response.data.avatar_url)
     })
     .catch((e) => console.error(e));
@@ -30,7 +29,6 @@ const BioAvatar = ({ token, actualImg }) => {
         },
       })
       .then((response) => {
-        console.log(response.data);
         setAvatar(response.data.avatar_url)
       })
       .catch((e) => console.error(e));
