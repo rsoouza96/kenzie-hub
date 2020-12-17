@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   List,
   ListItem,
@@ -27,10 +27,11 @@ const TechConfig = () => {
   const [newLevel, setNewLevel] = useState("Básico");
   const [isEditable, setIsEditable] = useState(false);
   const [techID, setTechID] = useState("");
-  const [updatableTechs, setTechs] = useState({})
   const [anchorEl, setAnchorEl] = useState(null);
+  const [techs, setTechs] = useState([])
 
   const userInfos = useSelector((state) => state.currentUserToken);
+
   const open = Boolean(anchorEl);
   const id = open ? "popover" : undefined;
 
