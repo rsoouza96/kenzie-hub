@@ -1,3 +1,4 @@
+import { Content } from "./style";
 import { useState, useEffect } from "react";
 import {
   List,
@@ -19,7 +20,6 @@ import CreateIcon from "@material-ui/icons/Create";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { useSelector } from "react-redux";
 import axios from "axios";
-import { Content } from "./style";
 
 const TechConfig = () => {
   const [techInput, setInput] = useState("");
@@ -27,7 +27,6 @@ const TechConfig = () => {
   const [newLevel, setNewLevel] = useState("Básico");
   const [isEditable, setIsEditable] = useState(false);
   const [techID, setTechID] = useState("");
-  const [updatableTechs, setTechs] = useState({});
   const [anchorEl, setAnchorEl] = useState(null);
   const [techs, setUpdateTechs] = useState([])
 
@@ -41,7 +40,7 @@ const TechConfig = () => {
       setUpdateTechs(response.data.techs)
     })
     .catch((e) => console.error(e));
-  }, [setIsEditable])
+  }, [])
 
   const open = Boolean(anchorEl);
   const id = open ? "popover" : undefined;

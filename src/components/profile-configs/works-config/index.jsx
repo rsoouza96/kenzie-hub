@@ -1,3 +1,4 @@
+import { Content, ContentList } from "./style";
 import { useState } from "react";
 import {
   List,
@@ -21,9 +22,7 @@ import { useSelector } from "react-redux";
 import WorkIcon from "@material-ui/icons/Work";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import { useEffect } from 'react'
-
 import axios from "axios";
-import { Content, ContentList } from "./style";
 
 const WorksConfig = () => {
   const [workTitleInput, setWorkTitleInput] = useState("");
