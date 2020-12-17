@@ -27,7 +27,7 @@ const TechConfig = () => {
   const [newLevel, setNewLevel] = useState("Básico");
   const [isEditable, setIsEditable] = useState(false);
   const [techID, setTechID] = useState("");
-  const [updatableTechs, setTechs] = useState({})
+  const [updatableTechs, setTechs] = useState({});
   const [anchorEl, setAnchorEl] = useState(null);
 
   const userInfos = useSelector((state) => state.currentUserToken);
@@ -69,7 +69,7 @@ const TechConfig = () => {
       headers: {
         Authorization: `Bearer ${userInfos.token}`,
       },
-      data: { status: level },
+      data: { status: newLevel },
     }).then((res) => {
       setIsEditable(false);
     });
@@ -146,51 +146,49 @@ const TechConfig = () => {
           </form>
         ) : userInfos.user.techs ? (
           userInfos.user.techs.map((tech, index) => (
-            <>
-              <ListItem key={index}>
-                <ListItemAvatar>
-                  <Avatar>
-                    <CodeIcon />
-                  </Avatar>
-                </ListItemAvatar>
-                <ListItemText primary={tech.title} secondary={tech.status} />
-                <IconButton>
-                  <CreateIcon
+            <ListItem key={index}>
+              <ListItemAvatar>
+                <Avatar>
+                  <CodeIcon />
+                </Avatar>
+              </ListItemAvatar>
+              <ListItemText primary={tech.title} secondary={tech.status} />
+              <IconButton>
+                <CreateIcon
+                  onClick={() => {
+                    setTechID(tech.id);
+                    handleEditable();
+                  }}
+                />
+              </IconButton>
+              <IconButton>
+                <DeleteIcon
+                  onClick={(evt) => {
+                    setTechID(tech.id);
+                    handleClick(evt, setAnchorEl);
+                  }}
+                />
+                <Popover
+                  id={id}
+                  open={open}
+                  anchorEl={anchorEl}
+                  onClose={handleClose}
+                  anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+                  transformOrigin={{ vertical: "top", horizontal: "center" }}
+                >
+                  <h2>Tem certeza?</h2>
+                  <Button
                     onClick={() => {
-                      setTechID(tech.id);
-                      handleEditable();
+                      deleteTech();
+                      handleClose();
                     }}
-                  />
-                </IconButton>
-                <IconButton>
-                  <DeleteIcon
-                    onClick={(evt) => {
-                      setTechID(tech.id);
-                      handleClick(evt, setAnchorEl);
-                    }}
-                  />
-                  <Popover
-                    id={id}
-                    open={open}
-                    anchorEl={anchorEl}
-                    onClose={handleClose}
-                    anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-                    transformOrigin={{ vertical: "top", horizontal: "center" }}
                   >
-                    <h2>Tem certeza?</h2>
-                    <Button
-                      onClick={() => {
-                        deleteTech();
-                        handleClose();
-                      }}
-                    >
-                      Sim
-                    </Button>
-                    <Button onClick={handleClose}>Não</Button>
-                  </Popover>
-                </IconButton>
-              </ListItem>
-            </>
+                    Sim
+                  </Button>
+                  <Button onClick={handleClose}>Não</Button>
+                </Popover>
+              </IconButton>
+            </ListItem>
           ))
         ) : (
           <div>Carregando...</div>
